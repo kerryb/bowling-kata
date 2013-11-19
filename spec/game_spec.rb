@@ -18,11 +18,11 @@ describe Game do
   end
 
   describe "Scoring a spare" do
-    xit "adds a bonus of the number of pins from the next roll" do
-      2.times { game.roll 10 }
+    it "adds a bonus of the number of pins from the next roll" do
+      2.times { game.roll 5 }
       game.roll 3
       17.times { game.roll 0 }
-      expect(game.score).to eq 26
+      expect(game.score).to eq 16
     end
   end
 end
