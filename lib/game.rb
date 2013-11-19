@@ -1,35 +1,32 @@
 class Game
+  attr_accessor :score
+
   def initialize
-    @rolls = []
+    @score = 0
+    @frame = []
+    @spare = false
+    @strike = 0
   end
 
   def roll pins
-    @rolls << pins
-  end
-
-  def score
-    state = :first_ball
-    frame_score = 0
-    total = 0
-    @rolls.each do |roll|
-      case state
-      when :first_ball
-        frame_score = roll
-        state = :second_ball
-      when :second_ball
-        frame_score += roll
-        total += frame_score
-        if frame_score == 10
-          state = :spare
-        else
-          state = :first_ball
-        end
-      when :spare
-        total += roll
-        frame_score = roll
-        state = :second_ball
-      end
+    @score += pins
+    if @spare
+      @score += pins
+      @spare = false
     end
-    total
+
+    if @strike > 0
+      @score += pins
+      @strike -= 1
+    end
+
+    @frame << pins
+    if @frame.size == 2
+      @spare = (@frame.inject(&:+) == 10)
+      @frame = []
+    elsif @frame == [10]
+      @strike = 2
+      @frame = []
+    end
   end
 end
