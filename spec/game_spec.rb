@@ -25,4 +25,14 @@ describe Game do
       expect(game.score).to eq 16
     end
   end
+
+  describe "Scoring a strike" do
+    it "adds a bonus of the number of pins from the next two rolls" do
+      game.roll 10
+      game.roll 3
+      game.roll 4
+      16.times { game.roll 0 }
+      expect(game.score).to eq 24
+    end
+  end
 end
