@@ -2,10 +2,14 @@ class Game
   attr_accessor :score
 
   def initialize
-    @score = 0
+    @scores = []
   end
 
   def roll pins
-    @score += pins
+    @scores << pins
+  end
+
+  def score
+    @scores.inject :+
   end
 end
