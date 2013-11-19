@@ -4,8 +4,9 @@ class Game
   def initialize
     @score = 0
     @frame = []
+    @frame_count = 0
     @spare = false
-    @strike = 0
+    @strike_bonuses = []
   end
 
   def roll pins
@@ -15,18 +16,31 @@ class Game
       @spare = false
     end
 
-    if @strike > 0
-      @score += pins
-      @strike -= 1
+    if multiplier = @strike_bonuses.shift
+      @score += pins * multiplier
     end
 
     @frame << pins
     if @frame.size == 2
-      @spare = (@frame.inject(&:+) == 10)
-      @frame = []
+      @spare = (@frame.inject(&:+) == 10 && @frame_count <= 10)
+      new_frame
     elsif @frame == [10]
-      @strike = 2
-      @frame = []
+      if @frame_count <= 8 #FIXME: Why 8? This is almost certainly wrong!
+        if @strike_bonuses.empty?
+          @strike_bonuses = [1, 1]
+        else
+          @strike_bonuses[0] += 1
+          @strike_bonuses.push 1
+        end
+      end
+      new_frame
     end
+  end
+
+  private
+
+  def new_frame
+    @frame_count += 1
+    @frame = []
   end
 end
