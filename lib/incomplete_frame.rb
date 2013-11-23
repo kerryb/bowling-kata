@@ -1,0 +1,1 @@
+IncompleteFrame = Struct.new :score

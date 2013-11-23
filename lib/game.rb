@@ -1,8 +1,15 @@
+require "scoreboard"
+
 class Game
+  def initialize
+    @scoreboard = Scoreboard.new []
+  end
+
   def roll pins
+    @scoreboard = @scoreboard.record_roll pins
   end
 
   def score
-    0
+    @scoreboard.score
   end
 end
