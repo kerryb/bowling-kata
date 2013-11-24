@@ -6,11 +6,17 @@ Scoreboard = Struct.new :frames do
     if frames.all?(&:complete?)
       Scoreboard.new(frames << IncompleteFrame.new(pins))
     else
-      Scoreboard.new frames.map {|f| f.update pins }
+      Scoreboard.new updated_frames(pins)
     end
   end
 
   def score
     frames.map(&:score).reduce(&:+)
+  end
+
+  private
+
+  def updated_frames pins
+    frames.map {|f| f.update pins }
   end
 end
