@@ -30,11 +30,22 @@ describe Scoreboard do
         Scoreboard.new [SpareFrame.new(10)]
       }
 
-      it "returns a new scoreboard with updated frames and a new incomplete frame" do
-        expect(scoreboard.record_roll(4).frames).to eq [
-          CompleteFrame.new(14),
-          IncompleteFrame.new(4),
-        ]
+      context "and fewwer than ten pins have been knocked down" do
+        it "returns a new scoreboard with updated frames and a new incomplete frame" do
+          expect(scoreboard.record_roll(4).frames).to eq [
+            CompleteFrame.new(14),
+            IncompleteFrame.new(4),
+          ]
+        end
+      end
+
+      context "and all ten pins have been knocked down" do
+        it "returns a new scoreboard with updated frames and a new strike frame" do
+          expect(scoreboard.record_roll(10).frames).to eq [
+            CompleteFrame.new(20),
+            StrikeFrame.new(10),
+          ]
+        end
       end
     end
   end
