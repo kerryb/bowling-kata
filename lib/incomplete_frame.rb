@@ -1,1 +1,5 @@
-IncompleteFrame = Struct.new :score
+IncompleteFrame = Struct.new :score do
+  def complete?
+    false
+  end
+end
