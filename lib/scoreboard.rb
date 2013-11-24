@@ -19,7 +19,7 @@ Scoreboard = Struct.new :frames do
   private
 
   def new_frame?
-    frames.all?(&:complete?)
+    frames.size < 10 && frames.all?(&:complete?)
   end
 
   def update_frames pins

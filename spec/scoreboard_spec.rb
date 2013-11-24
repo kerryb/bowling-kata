@@ -25,7 +25,37 @@ describe Scoreboard do
       end
     end
 
-    context "when the last frame is complete" do
+    context "when all ten frames are complete" do
+      subject(:scoreboard) { Scoreboard.new [
+        CompleteFrame.new(1),
+        CompleteFrame.new(1),
+        CompleteFrame.new(1),
+        CompleteFrame.new(1),
+        CompleteFrame.new(1),
+        CompleteFrame.new(1),
+        CompleteFrame.new(1),
+        CompleteFrame.new(1),
+        CompleteFrame.new(1),
+        SpareFrame.new(10),
+      ] }
+
+      it "returns a new scoreboard with updated frames" do
+        expect(scoreboard.record_roll(4).frames).to eq [
+          CompleteFrame.new(1),
+          CompleteFrame.new(1),
+          CompleteFrame.new(1),
+          CompleteFrame.new(1),
+          CompleteFrame.new(1),
+          CompleteFrame.new(1),
+          CompleteFrame.new(1),
+          CompleteFrame.new(1),
+          CompleteFrame.new(1),
+          CompleteFrame.new(14),
+        ]
+      end
+    end
+
+    context "when the last frame is complete, but there are still frames left to bowl" do
       subject(:scoreboard) {
         Scoreboard.new [SpareFrame.new(10)]
       }

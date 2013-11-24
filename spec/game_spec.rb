@@ -32,4 +32,11 @@ describe Game do
       expect(game.score).to eq 24
     end
   end
+
+  describe "Bowling a perfect game" do
+    it "scores 300" do
+      12.times { game.roll 10 }
+      expect(game.score).to eq 300
+    end
+  end
 end
