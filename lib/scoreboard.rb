@@ -3,10 +3,11 @@ require "incomplete_frame"
 
 Scoreboard = Struct.new :frames do
   def record_roll pins
+    updated_frames = update_frames pins
     if new_frame? 
-      Scoreboard.new(frames << IncompleteFrame.new(pins))
+      Scoreboard.new(updated_frames << IncompleteFrame.new(pins))
     else
-      Scoreboard.new updated_frames(pins)
+      Scoreboard.new updated_frames
     end
   end
 
@@ -20,7 +21,7 @@ Scoreboard = Struct.new :frames do
     frames.all?(&:complete?)
   end
 
-  def updated_frames pins
+  def update_frames pins
     frames.map {|f| f.update pins }
   end
 end

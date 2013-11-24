@@ -17,7 +17,7 @@ describe Scoreboard do
         Scoreboard.new [CompleteFrame.new(5), IncompleteFrame.new(2)]
       }
 
-      it "returns a new scoreboard with the frame completed" do
+      it "returns a new scoreboard with updated frames" do
         expect(scoreboard.record_roll(4).frames).to eq [
           CompleteFrame.new(5),
           CompleteFrame.new(6),
@@ -27,12 +27,12 @@ describe Scoreboard do
 
     context "when the last frame is complete" do
       subject(:scoreboard) {
-        Scoreboard.new [CompleteFrame.new(5)]
+        Scoreboard.new [SpareFrame.new(10)]
       }
 
-      it "returns a new scoreboard with a new incomplete frame" do
+      it "returns a new scoreboard with updated frames and a new incomplete frame" do
         expect(scoreboard.record_roll(4).frames).to eq [
-          CompleteFrame.new(5),
+          CompleteFrame.new(14),
           IncompleteFrame.new(4),
         ]
       end
