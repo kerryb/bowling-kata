@@ -6,7 +6,7 @@ Scoreboard = Struct.new :frames do
     if frames.all?(&:complete?)
       Scoreboard.new(frames << IncompleteFrame.new(pins))
     else
-      Scoreboard.new(frames[0..-2] << CompleteFrame.new(frames.last.score + pins))
+      Scoreboard.new frames.map {|f| f.update pins }
     end
   end
 
